@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: pubsub-demo
+server:
+  port: 8080
+
+dapr:
+  pubsub:
+    name: pubsub
