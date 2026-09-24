@@ -1,0 +1,35 @@
+
+
+dapr run `
+  --app-id dapr-pubsub-poc `
+  --app-port 8080 `
+  --dapr-http-port 3500 `
+  --resources-path .\dapr\components `
+  -- java -jar .\target\pubsub-0.0.1-SNAPSHOT.jar
+
+
+
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/publish/raw"
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/publish/dapr-cloud-event"
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/publish/custom-metadata"
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/publish/custom-cloud-event"
+
+
+
+
+
+
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic orders-raw --partitions 1 --replication-factor 1
+
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic orders-dapr-cloud-event --partitions 1 --replication-factor 1
+
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic orders-custom-cloud-event --partitions 1 --replication-factor 1
+
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic orders-custom-envelope --partitions 1 --replication-factor 1
+
+
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --list
