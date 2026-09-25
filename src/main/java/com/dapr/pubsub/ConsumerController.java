@@ -18,10 +18,11 @@ public class ConsumerController {
                       {"rawPayload": "true", "content-type": "application/json"}""")
     public void consumeRaw( @RequestBody Message message) {
         System.out.println();
-        System.out.println("==========================================");
-        System.out.println("RAW MESSAGE RECEIVED");
-        System.out.println("==========================================");
+        System.out.println("==========================================\n");
+        System.out.println("RAW MESSAGE RECEIVED\n");
+        System.out.println("==========================================\n");
         System.out.println("Message = " + message);
+        System.out.println("==========================================\n\n");
     }
 
     // 2. DAPR-GENERATED CLOUD EVENT
@@ -30,10 +31,11 @@ public class ConsumerController {
     @Topic(pubsubName = "pubsub",name = "orders-dapr-cloud-event")
     public void consumeDaprCloudEvent(@RequestBody CloudEvent<Message> cloudEvent) {
         System.out.println();
-        System.out.println("==========================================");
-        System.out.println("DAPR-GENERATED CLOUD EVENT RECEIVED");
-        System.out.println("==========================================");
+        System.out.println("==========================================\n");
+        System.out.println("DAPR-GENERATED CLOUD EVENT RECEIVED\n");
+        System.out.println("==========================================\n");
         printCloudEvent(cloudEvent);
+        System.out.println("==========================================\n\n");
     }
 
     // 3. DAPR CLOUD EVENT WITH CUSTOM METADATA
@@ -42,10 +44,11 @@ public class ConsumerController {
     @Topic( pubsubName = "pubsub", name = "orders-custom-cloud-event")
     public void consumeCustomMetadata(@RequestBody CloudEvent<Message> cloudEvent) {
         System.out.println();
-        System.out.println("==========================================");
-        System.out.println("CUSTOM METADATA CLOUD EVENT RECEIVED");
-        System.out.println("==========================================");
+        System.out.println("==========================================\n\n");
+        System.out.println("CUSTOM METADATA CLOUD EVENT RECEIVED\n");
+        System.out.println("==========================================\n");
         printCloudEvent(cloudEvent);
+        System.out.println("==========================================\n\n");
     }
 
 
@@ -55,10 +58,11 @@ public class ConsumerController {
     @Topic(pubsubName = "pubsub",name = "orders-custom-envelope")
     public void consumeCustomCloudEvent(@RequestBody CloudEvent<Message> cloudEvent) {
         System.out.println();
-        System.out.println("==========================================");
-        System.out.println("APPLICATION-CREATED CLOUD EVENT RECEIVED");
-        System.out.println("==========================================");
+        System.out.println("==========================================\n\n");
+        System.out.println("APPLICATION-CREATED CLOUD EVENT RECEIVED\n");
+        System.out.println("==========================================\n\n");
         printCloudEvent(cloudEvent);
+        System.out.println("==========================================\n\n");
     }
 
 
@@ -67,11 +71,14 @@ public class ConsumerController {
     // COMMON CLOUD EVENT PRINT METHOD
 
     private void printCloudEvent(CloudEvent<Message> cloudEvent) {
+        System.out.println();
         System.out.println("ID       : " + cloudEvent.getId());
         System.out.println("Source   : " + cloudEvent.getSource());
         System.out.println("Type     : " + cloudEvent.getType());
         System.out.println("Spec     : " + cloudEvent.getSpecversion());
         System.out.println("DataType : " + cloudEvent.getDatacontenttype());
         System.out.println("Data     : " + cloudEvent.getData());
+        System.out.println();
+        System.out.println("==========================================\n\n");
     }
 }
